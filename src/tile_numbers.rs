@@ -4,6 +4,7 @@ use crate::tiles::*;
 pub fn tile_adder() -> Vec<Tile> {
   let mut tile_set = tile_builder();
   let mut numbered_tile_set = tile_set.clone();
+  let mut counter = 0;
 
   for tile in &tile_set {
     if tile.tile_type == IsBomb::Bomb {

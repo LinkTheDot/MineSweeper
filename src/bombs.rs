@@ -2,13 +2,13 @@ use crate::inputs;
 use crate::tiles::*;
 use rand::prelude::*;
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Clone, PartialEq)]
 pub enum IsBomb {
   Bomb,
   NotBomb,
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Clone, PartialEq)]
 pub struct Tile {
   pub tile_type: IsBomb,
   pub bombs_around: i8,

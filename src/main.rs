@@ -6,8 +6,6 @@ mod bombs;
 mod tile_numbers;
 mod tiles;
 
-// main
-// another change
 fn main() {
   let mut tile_set = tile_numbers::tile_adder();
   let mut win_counter = 25;
@@ -85,11 +83,13 @@ E|{e1}|{e2}|{e3}|{e4}|{e5}",
 
         while count <= 24 {
           game_over = true;
+
           if tile_set[count].tile_type == IsBomb::Bomb {
             tile_set[count].display = String::from("ó");
           } else {
             tile_set[count].display = tile_set[count].bombs_around.to_string();
           }
+
           count += 1;
         }
       } else {
