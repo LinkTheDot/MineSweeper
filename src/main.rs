@@ -6,6 +6,7 @@ mod bombs;
 mod tile_numbers;
 mod tiles;
 
+// main
 fn main() {
   let mut tile_set = tile_numbers::tile_adder();
   let mut win_counter = 25;
