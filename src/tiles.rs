@@ -3,14 +3,13 @@ use crate::bombs::*;
 pub fn tile_builder() -> Vec<Tile> {
   let mut bombs: Vec<Tile> = bomb_assignment();
   let mut tiles: Vec<Tile> = Vec::new();
-  let mut tile_name_assign = 24;
   let mut push_confirmation = false;
 
-  loop {
+  for counter in 0..25 {
     let tile_struct = Tile {
       tile_type: IsBomb::NotBomb,
       bombs_around: 0,
-      tile_name: name_assignment(tile_name_assign),
+      tile_name: name_assignment(counter),
       display: String::from("▮"),
     };
 
@@ -25,12 +24,6 @@ pub fn tile_builder() -> Vec<Tile> {
 
     if push_confirmation {
       tiles.push(tile_struct);
-    }
-
-    if tile_name_assign == 0 {
-      break;
-    } else {
-      tile_name_assign -= 1;
     }
   }
 
