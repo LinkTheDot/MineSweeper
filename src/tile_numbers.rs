@@ -3,7 +3,6 @@ use crate::tiles::*;
 
 pub fn tile_adder() -> Vec<Tile> {
   let mut tile_set = tile_builder();
-  let mut counter = 0;
 
   for counter in 0..25 {
     if tile_set[counter].tile_type == IsBomb::Bomb {

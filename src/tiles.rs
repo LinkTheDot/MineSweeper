@@ -1,7 +1,7 @@
 use crate::bombs::*;
 
 pub fn tile_builder() -> Vec<Tile> {
-  let mut bombs: Vec<Tile> = bomb_assignment();
+  let bombs: Vec<Tile> = bomb_assignment();
   let mut tiles: Vec<Tile> = Vec::new();
   let mut push_confirmation = false;
 
@@ -37,7 +37,6 @@ pub fn tile_builder() -> Vec<Tile> {
 fn tile_ordering(tile_set: Vec<Tile>) -> Vec<Tile> {
   let mut filtered_tile_set: Vec<Tile> = Vec::new();
   let mut name_sorter: u8 = 0;
-  let mut push_confirmation = 0;
 
   while name_sorter <= 24 {
     let name = name_assignment(name_sorter);

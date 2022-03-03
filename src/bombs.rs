@@ -1,14 +1,13 @@
 use crate::inputs;
-use crate::tiles::*;
 use rand::prelude::*;
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Clone, PartialEq)]
 pub enum IsBomb {
   Bomb,
   NotBomb,
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Clone, PartialEq)]
 pub struct Tile {
   pub tile_type: IsBomb,
   pub bombs_around: i8,
@@ -18,8 +17,7 @@ pub struct Tile {
 
 pub fn bomb_assignment() -> Vec<Tile> {
   let mut assigned_bombs: Vec<Tile> = Vec::new();
-  let mut bomb_count = inputs();
-  let mut vector_bomb_count = 0;
+  let bomb_count = inputs();
 
   loop {
     let bomb_range = rand::thread_rng().gen_range(0..24);
@@ -37,18 +35,14 @@ pub fn bomb_assignment() -> Vec<Tile> {
       if bomb.tile_name == bomb_x.tile_name {
         push_confirmation = false;
         break;
-      } else {
-        vector_bomb_count += 1;
       }
     }
 
-    if vector_bomb_count == bomb_count {
+    if assigned_bombs.len() == bomb_count.into() {
       break;
     } else if push_confirmation {
       assigned_bombs.push(bomb);
     }
-
-    vector_bomb_count -= vector_bomb_count;
   }
 
   assigned_bombs

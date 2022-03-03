@@ -1,4 +1,3 @@
-#![allow(unused)]
 use crate::bombs::*;
 use std::io;
 
