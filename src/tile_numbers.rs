@@ -1,8 +1,8 @@
 use crate::bombs::*;
 use crate::tiles::*;
 
-pub fn tile_adder() -> Vec<Tile> {
-  let mut tile_set = tile_builder();
+pub fn tile_adder(input: u8) -> Vec<Tile> {
+  let mut tile_set = tile_builder(input);
 
   for counter in 0..25 {
     if tile_set[counter].tile_type == IsBomb::Bomb {

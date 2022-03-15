@@ -1,9 +1,9 @@
 use crate::bombs::*;
 
-pub fn tile_builder() -> Vec<Tile> {
-  let bombs: Vec<Tile> = bomb_assignment();
+pub fn tile_builder(input: u8) -> Vec<Tile> {
+  let bombs: Vec<Tile> = bomb_assignment(input);
   let mut tiles: Vec<Tile> = Vec::new();
-  let mut push_confirmation = false;
+  let mut confirm_push = false;
 
   for counter in 0..25 {
     let tile_struct = Tile {
@@ -15,14 +15,14 @@ pub fn tile_builder() -> Vec<Tile> {
 
     for bomb in &bombs {
       if bomb.tile_name == tile_struct.tile_name {
-        push_confirmation = false;
+        confirm_push = false;
         break;
       } else {
-        push_confirmation = true;
+        confirm_push = true;
       }
     }
 
-    if push_confirmation {
+    if confirm_push {
       tiles.push(tile_struct);
     }
   }

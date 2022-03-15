@@ -1,4 +1,3 @@
-use crate::inputs;
 use rand::prelude::*;
 
 #[derive(Clone, PartialEq)]
@@ -15,14 +14,13 @@ pub struct Tile {
   pub display: String,
 }
 
-pub fn bomb_assignment() -> Vec<Tile> {
+pub fn bomb_assignment(bomb_count: u8) -> Vec<Tile> {
   let mut assigned_bombs: Vec<Tile> = Vec::new();
-  let bomb_count = inputs();
 
   loop {
     let bomb_range = rand::thread_rng().gen_range(0..24);
     let name = name_assignment(bomb_range);
-    let mut push_confirmation = true;
+    let mut confirm_push = true;
 
     let bomb = Tile {
       tile_type: IsBomb::Bomb,
@@ -33,14 +31,14 @@ pub fn bomb_assignment() -> Vec<Tile> {
 
     for bomb_x in &assigned_bombs {
       if bomb.tile_name == bomb_x.tile_name {
-        push_confirmation = false;
+        confirm_push = false;
         break;
       }
     }
 
     if assigned_bombs.len() == bomb_count.into() {
       break;
-    } else if push_confirmation {
+    } else if confirm_push {
       assigned_bombs.push(bomb);
     }
   }

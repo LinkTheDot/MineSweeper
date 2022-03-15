@@ -6,15 +6,31 @@ mod tile_numbers;
 mod tiles;
 
 fn main() {
-  let mut tile_set = tile_numbers::tile_adder();
-  let mut win_counter = 25;
+  let input = inputs();
+  let mut tile_set = tile_numbers::tile_adder(input);
+  let mut win_counter: u8 = 25 - input;
   let mut game_over = false;
 
   println!("");
   println!("use ! after an input to mark a tile as a bomb");
+  println!("do the same to unmark a tile");
   println!("example - a1!");
 
   loop {
+    println!("----------------------------------------");
+    println!("----------------------------------------");
+    println!("----------------------------------------");
+
+    if game_over {
+      for count in 0..25 {
+        if tile_set[count].tile_type == IsBomb::Bomb {
+          tile_set[count].display = String::from("ó");
+        } else {
+          tile_set[count].display = tile_set[count].bombs_around.to_string();
+        }
+      }
+    }
+
     println!(
       "
 x 1 2 3 4 5
@@ -60,6 +76,11 @@ E|{e1}|{e2}|{e3}|{e4}|{e5}",
     println!("choose a tile");
     io::stdin().read_line(&mut chosen_tile).unwrap();
 
+    if chosen_tile.trim() == String::from("board") {
+      game_over = true;
+      continue;
+    }
+
     let mut marker = false;
 
     if chosen_tile.len() == 4 {
@@ -74,23 +95,25 @@ E|{e1}|{e2}|{e3}|{e4}|{e5}",
       100
     };
 
+    if chosen_tile < 100 {
+      if tile_set[chosen_tile].display.trim() == String::from("!") {
+        if marker {
+          tile_set[chosen_tile].display = String::from("▮");
+          println!("marked tile reverted");
+          continue;
+        }
+
+        println!("chose marked tile");
+        continue;
+      }
+    }
+
     if marker {
       tile_set[chosen_tile].display = String::from("!");
     } else if chosen_tile < 100 {
       if tile_set[chosen_tile].tile_type == IsBomb::Bomb {
-        let mut count = 0;
-
-        while count <= 24 {
-          game_over = true;
-
-          if tile_set[count].tile_type == IsBomb::Bomb {
-            tile_set[count].display = String::from("ó");
-          } else {
-            tile_set[count].display = tile_set[count].bombs_around.to_string();
-          }
-
-          count += 1;
-        }
+        game_over = true;
+        continue;
       } else {
         tile_set[chosen_tile].display = tile_set[chosen_tile].bombs_around.to_string();
         win_counter -= 1;
@@ -100,12 +123,10 @@ E|{e1}|{e2}|{e3}|{e4}|{e5}",
     }
 
     if win_counter == 0 {
-      println!("board cleared");
+      println!("");
+      println!("board cleared!");
+      game_over = true;
     }
-
-    println!("----------------------------------------");
-    println!("----------------------------------------");
-    println!("----------------------------------------");
   }
 }
 
